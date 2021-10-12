@@ -29,7 +29,7 @@
     "test:prod": "MODE=prod wtr",
     "test:prod:watch": "MODE=prod wtr --watch",
     "checksize": "rollup -c ; cat my-element.bundled.js | gzip -9 | wc -c ; rm my-element.bundled.js",
-    "start": "npm run build && npm run serve:prod"
+    "start": "npm run serve:prod"
   },
   "keywords": [
     "web-components",
