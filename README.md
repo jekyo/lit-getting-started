@@ -1,113 +1,146 @@
-# LitElement JavaScript starter
+# Tutorial: Deploying a basic Lit app on Jekyo
 
-This project includes a sample component using LitElement with JavaScript.
+Demo app [here](https://lit-demo.jekyo.app/)
 
-## Setup
+### Prerequisites
 
-Install dependencies:
+Make sure you have [NodeJS](https://nodejs.org/en/download/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [git](https://github.com/git-guides/install-git) installed.
 
-```bash
-npm i
+If it's your first time using **Jekyo**, you can **install** it by running the following command in your terminal:
+
+`npm install -g jekyo`
+
+### Sign in to Jekyo
+
+You can sign in to Jekyo by running `jekyo user:signin`
+
+```
+➜  ~ jekyo user:signin 
+Your email?: **************
+Your password?: **********
+You have successfully signed in!
+```
+If you don't have a Jekyo account, you can create one in the terminal by running `jekyo user:signup`. 
+
+## 1. Create a basic Lit app
+
+You can start your Lit project by using `jekyo create`
+
+Using the **arrows** on your keyboard, select **lit** and press **enter**.  
+```
+? Select template
+  None Creates only the application
+  expressjs A basic app skeleton using [Express](https://expressjs.com/)     
+  nuxt-js A boilerplate SSR application using [Nuxt.js](https://nuxtjs.org/) 
+❯ lit A basic starter app using [Lit](https://lit.dev/)
+```
+When prompted, enter the desired name for your Lit app. 
+
+`Application name?: lit-tutorial`
+
+This will create a basic Lit app in the current directory by cloning this [Lit starter app](https://github.com/jekyo/lit-getting-started) repository.
+
+```
+Cloning source code... OK
+Application created!
 ```
 
-## Testing
+### Deploy the Lit app on Jekyo
 
-This sample modern-web.dev's
-[@web/test-runner](https://www.npmjs.com/package/@web/test-runner) along with
-Mocha, Chai, and some related helpers for testing. See the
-[modern-web.dev testing documentation](https://modern-web.dev/docs/test-runner/overview) for
-more information.
+To deploy the app, first navigate to the newly created directory:
 
-Tests can be run with the `test` script, which will run your tests against Lit's development mode (with more verbose errors) as well as against Lit's production mode:
+`cd lit-tutorial`
 
-```bash
-npm test
+Now you can deploy this app to Jekyo by running: 
+
+`jekyo deploy`
+
+After a while, you should see something like this:
+
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://lit-tutorial.jekyo.app ... OK
 ```
 
-For local testing during development, the `test:dev:watch` command will run your tests in Lit's development mode (with verbose errors) on every change to your source files:
+You can now browse to your Lit app on https://lit-tutorial.jekyo.app (replace 'lit-tutorial' with your app name)
 
-```bash
-npm test:watch
+## 2. Deploying an existing Lit app
+
+Navigate to your local Lit app directory
+
+`cd my-lit-app`
+
+Initialize a git repository if you haven't already done so by running `git init`. 
+
+### Edit package.json
+
+Edit the **serve** line under **scripts** to look like this: 
+
+```
+"serve": "wds --watch --port $PORT --host $HOST",
+```
+This specifies the necessary port and host variables for Jekyo.
+
+Add a **start** line: 
+
+```
+"start": "npm run serve:prod"
 ```
 
-Alternatively the `test:prod` and `test:prod:watch` commands will run your tests in Lit's production mode.
+### Create an empty Jekyo app:
 
-## Dev Server
+`jekyo create` 
 
-This sample uses modern-web.dev's [@web/dev-server](https://www.npmjs.com/package/@web/dev-server) for previewing the project without additional build steps. Web Dev Server handles resolving Node-style "bare" import specifiers, which aren't supported in browsers. It also automatically transpiles JavaScript and adds polyfills to support older browsers. See [modern-web.dev's Web Dev Server documentation](https://modern-web.dev/docs/dev-server/overview/) for more information.
+Select 'none' using the **arrows** on your keyboard and press **enter**. This will create an app using your current directory. 
 
-To run the dev server and open the project in a new browser tab:
-
-```bash
-npm run serve
+```
+? Select template (Use arrow keys)
+❯ None Creates an application from your current directory
 ```
 
-There is a development HTML file located at `/dev/index.html` that you can view at http://localhost:8000/dev/index.html. Note that this command will serve your code using Lit's development mode (with more verbose errors). To serve your code against Lit's production mode, use `npm run serve:prod`.
+Name your app: 
 
-## Editing
+`Application name?: my-lit-app`
 
-If you use VS Code, we highly reccomend the [lit-plugin extension](https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin), which enables some extremely useful features for lit-html templates:
+Run `jekyo link` to link your local app to the remote Jekyo app. Select 'my-lit-app' using the **arrows** on your keyboard and press **enter**.
 
-- Syntax highlighting
-- Type-checking
-- Code completion
-- Hover-over docs
-- Jump to definition
-- Linting
-- Quick Fixes
+```
+? Select application (Use arrow keys)
+❯ my-lit-app
+```
+### Now you can deploy this app to Jekyo by running: 
 
-The project is setup to reccomend lit-plugin to VS Code users if they don't already have it installed.
+`jekyo deploy`
 
-## Linting
+After a while, you should see something like this:
 
-Linting of JavaScript files is provided by [ESLint](eslint.org). In addition, [lit-analyzer](https://www.npmjs.com/package/lit-analyzer) is used to type-check and lint lit-html templates with the same engine and rules as lit-plugin.
-
-The rules are mostly the recommended rules from each project, but some have been turned off to make LitElement usage easier. The recommended rules are pretty strict, so you may want to relax them by editing `.eslintrc.json`.
-
-To lint the project run:
-
-```bash
-npm run lint
+```
+➜  Fetching source code ... OK
+➜  Building application, this might take a while ... OK
+➜  Publishing application, this might take a while  ... OK
+➜  Deploying application ... OK        
+➜  Waiting for application to start ... OK
+➜  Visit your app on: https://my-lit-app.jekyo.app ... OK
 ```
 
-## Formatting
+You can now browse to your Lit app on https://my-lit-app.jekyo.app (replace 'my-lit-app' with your app name)
 
-[Prettier](https://prettier.io/) is used for code formatting. It has been pre-configured according to the Lit's style. You can change this in `.prettierrc.json`.
+## Pushing local changes to Jekyo 
 
-Prettier has not been configured to run when commiting files, but this can be added with Husky and and `pretty-quick`. See the [prettier.io](https://prettier.io/) site for instructions.
+Add the newly modified file(s) to the git index by using [git add](https://www.atlassian.com/git/tutorials/saving-changes)
 
-## Static Site
+`git add filename`
 
-This project includes a simple website generated with the [eleventy](11ty.dev) static site generator and the templates and pages in `/docs-src`. The site is generated to `/docs` and intended to be checked in so that GitHub pages can serve the site [from `/docs` on the master branch](https://help.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+Create a [git commit](https://github.com/git-guides/git-commit)
 
-To enable the site go to the GitHub settings and change the GitHub Pages &quot;Source&quot; setting to &quot;master branch /docs folder&quot;.</p>
+`git commit -m "your commit message"`
 
-To build the site, run:
+Now, simply deploy your app again:
 
-```bash
-npm run docs
-```
+`jekyo deploy`
 
-To serve the site locally, run:
-
-```bash
-npm run docs:serve
-```
-
-To watch the site files, and re-build automatically, run:
-
-```bash
-npm run docs:watch
-```
-
-The site will usually be served at http://localhost:8000.
-
-## Bundling and minification
-
-This starter project doesn't include any build-time optimizations like bundling or minification. We recommend publishing components as unoptimized JavaScript modules, and performing build-time optimizations at the application level. This gives build tools the best chance to deduplicate code, remove dead code, and so on.
-
-For information on building application projects that include LitElement components, see [Build for production](https://lit.dev/docs/tools/production/) on the LitElement site.
-
-## More information
-
-See [Get started](https://lit.dev/docs/getting-started/) on the Lit site for more information.
+You will see your changes on your live app after a short while. 
