@@ -88,7 +88,7 @@ This specifies the necessary port and host variables for Jekyo.
 Add a **start** line: 
 
 ```
-"start": "npm run serve:prod"
+"start": "MODE=prod npm run serve"
 ```
 
 ### Create an empty Jekyo app:
